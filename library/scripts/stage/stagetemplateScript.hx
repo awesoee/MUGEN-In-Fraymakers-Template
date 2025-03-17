@@ -1173,6 +1173,7 @@ function koLogic(winner:Int) {
 
                 player1.addTimer(5,1,function(){
                 blackScreen.alpha = 0;
+                exterminateEarlyAccessUpdateZeroPointSevenPointSevenNewAssistCadenceFromCryptOfTheNecrodancerExclamationPoint();
                 roundLogic();
                 }, {persistent:true});
             }, {persistent:true});
@@ -1521,6 +1522,7 @@ function roundLogic() {
                     p3debounce = false;
                     p4debounce = false;
 
+
                     for (plr in players) {
                         plr.toState(CState.UNINITIALIZED, "stand"); 
                         plr.addTimer(1,20,function(){
@@ -1832,6 +1834,7 @@ function evilAssCooldownAdder(event:GameObjectEvent){
 };
 
 function stamina(event:GameObjectEvent) {
+
 	if (event.data.self.getDamage() >= 200) {
 		//event.data.self.toState(CState.KO);
         event.data.self.applyGlobalBodyStatus(BodyStatus.INVINCIBLE, 180);
@@ -2915,7 +2918,17 @@ function disableMoveCancel(characterAffected:Character, amountOfFrames:Int) {
     characterAffected.addTimer(amountOfFrames, 1, function(){
         characterAffected.addEventListener(GameObjectEvent.HITBOX_CONNECTED, turbo, {persistent:true});
         characterAffected.addEventListener(GameObjectEvent.HITBOX_CONNECTED, evilAssCooldownAdder, {persistent:true});
-    }, {persistent:true});
+    }, {persistent:true, pauseCondition: function() { if ( characterAffected.getHitstop() > 0 ){ return true; }}});
+}
+
+function exterminateEarlyAccessUpdateZeroPointSevenPointSevenNewAssistCadenceFromCryptOfTheNecrodancerExclamationPoint(){
+    for (plr in players) {
+        if (plr.getVisible() != true){
+            self.addTimer(1,10,function(){
+                plr.setVisible(true);
+            }, {persistent:true});
+        }
+    }
 }
 
 function hitstopDecay(e:GameObjectEvent) {
